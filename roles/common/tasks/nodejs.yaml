@@ -6,7 +6,7 @@
     name: nodejs 
     state: present
 
-- name: Install dependencies (To change the working dir into /app dir)
+- name: Install dependencies
   ansible.builtin.command: npm install
-    args:
-      chdir: /app
+  args:
+    chdir: /app
