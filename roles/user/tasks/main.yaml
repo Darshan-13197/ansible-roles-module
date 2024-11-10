@@ -3,17 +3,17 @@
     name: common
     tasks_from: app-setup
 
-- name: Nodejs 18
+- name: nodejs
   ansible.builtin.import_role:
     name: common
     tasks_from: nodejs
 
-- name: MongoDB Setup
+- name: mongodb setup
   ansible.builtin.import_role:
     name: common
     tasks_from: mongodb-setup
 
-- name: systemctl status
+- name: systemctl service
   ansible.builtin.import_role:
     name: common
     tasks_from: systemd
