@@ -3,12 +3,12 @@
     name: common
     tasks_from: app-setup
 
-- name: NodeJS-18
+- name: Nodejs 18
   ansible.builtin.import_role:
     name: common
     tasks_from: nodejs
 
-- name: MongoDB
+- name: MongoDB Setup
   ansible.builtin.import_role:
     name: common
     tasks_from: mongodb-setup
