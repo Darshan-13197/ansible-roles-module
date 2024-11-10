@@ -12,8 +12,10 @@
 - name: Start and Enable Systemctl Services.
   ansible.builtin.service: #Contains 2 fields - name and state
     name: mongod
-    state: startedgit 
+    state: started
+    enabled: yes
 
+#Allow Remote connection
 - name: Update listen address from 127.0.0.1 to 0.0.0.0 in /etc/mongod.conf
   ansible.builtin.replace:
     path: /etc/mongod.conf
