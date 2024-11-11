@@ -1,0 +1,49 @@
+- name: install nginx
+  ansible.builtin.dnf:
+    name: nginx 
+    state: present
+
+- name: remove html directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: create html directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: Download web app
+  ansible.builtin.get_url:
+    url: https://roboshop-builds.s3.amazonaws.com/web.zip
+    dest: /tmp
+
+- name: Extract application
+  ansible.builtin.unarchive:
+    src: /tmp/web.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes #because file is already available in remote server.
+
+# - name: copy roboshop configuration
+#   ansible.builtin.copy:
+#     src: roboshop.conf
+#     dest: /etc/nginx/default.d/roboshop.conf
+
+#If you are using Templates module 
+- name: copy roboshop configuration
+  ansible.builtin.template:
+    src: roboshop.conf.j2
+    dest: /etc/nginx/default.d/roboshop.conf
+  notify:
+  - Restart nginx   
+  #informing to handlers --> main.yaml to restart the nginx if there is any change.
+
+# - name: start and enable nginx
+#   ansible.builtin.service:
+#     name: nginx
+#     state: restarted
+#     enabled: yes
+
+# If you are using Handlers concept to RUN a specific task when the config changes has been done.
+# Then, we need to use keyword "notify" 
+# And, you need to remove the "start and enable nginx" and copy it to the folder HANDLERS --> main.yaml
