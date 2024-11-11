@@ -1,25 +1,25 @@
-- name: "Stop {{component}}" 
+- name: "stop {{component}}"
   tags:
   - deployment
   ansible.builtin.service:
     name: "{{component}}"
     state: stopped
 
-- name: remove old code in /app directory
+- name: Recursively remove app directory
   tags:
   - deployment
   ansible.builtin.file:
-    path: /app      #It will delete all the files along with app directory
+    path: /app
     state: absent
- #  force: yes
- #   recurse: yes --> only if the Directory exists
+    #force: yes
+    #recurse: yes
 
- - name: create app directory
-   tags:
-   - deployment
-   ansible.builtin.file:
-     path: /app
-     state: present
+- name: create app directory
+  tags:
+  - deployment
+  ansible.builtin.file:
+    path: /app
+    state: directory
 
 - name: "download {{component}} application"
   tags:
@@ -36,23 +36,19 @@
     dest: /app
     remote_src: yes
 
-- name: Install Dependencies
+- name: Install dependencies
   tags:
   - deployment
-  ansible.builtin.service: npm install
-    args:
-      chdir: /app
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app
 
-- name: "Restart {{component}}"
+- name: "restart {{component}}"
   tags:
   - deployment
   ansible.builtin.service:
     name: "{{component}}"
     state: restarted
-
-
-
-
 
 # Where it will use.?
 # Ex: Consider the catalogue /roles/catalogue/tasks/main.yaml -> Suppose, you have new version to release, so we have to deployment the new version.
