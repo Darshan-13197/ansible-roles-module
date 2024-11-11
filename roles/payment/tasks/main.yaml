@@ -1,0 +1,16 @@
+- name: app setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup
+
+- name: Python
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: python-setup
+
+- name: systemctl status
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd
+
+# If you not using TEMPLATES, then keep the catalogue.service under files and give the shell module "ansible.builtin.shell"
