@@ -1,0 +1,14 @@
+# submit your host
+
+MONGODB_HOST: mongodb.darshanshop.online 
+REDIS_HOST: redis.darshanshop.online
+MYSQL_HOST: mysql.darshanshop.online
+RABBITMQ_HOST: rabbitmq.darshanshop.online
+CATALOGUE_HOST: catalogue.darshanshop.online
+USER_HOST: user.darshanshop.online
+CART_HOST: cart.darshanshop.online
+SHIPPING_HOST: shipping.darshanshop.online
+PAYMENT_HOST: payment.darshanshop.online
+DISPATCH_HOST: dispatch.daws76s.online
+
+# For WEB No Need.
