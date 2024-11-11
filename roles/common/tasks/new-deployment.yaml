@@ -9,11 +9,10 @@
   tags:
   - deployment
   ansible.builtin.file:
-    path: "app*"
+    path: "/app/*"
     state: absent
 
-
-#  -- Where it will use.?
+# Where it will use.?
 # Ex: Consider the catalogue /roles/catalogue/tasks/main.yaml -> Suppose, you have new version to release, so we have to deployment the new version.
 # while deploying--> do we need to RUN all these things (main.yaml) like  monggodb, appsetup, nodejs? --> NO.
 # It is a OneTime Setup, once it is done, that's it.
