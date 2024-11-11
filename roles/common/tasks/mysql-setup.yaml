@@ -16,4 +16,4 @@
   when: schema.stdout != "1"
 
 # We kept place holder for Mysql Host.
-# For MySQL Password --> --> we have kept the place holder and this password is stored under --> shipping/version/main.yaml
+# For MySQL Password --> --> we have kept the place holder and this password is stored under --> shipping/vars/main.yaml

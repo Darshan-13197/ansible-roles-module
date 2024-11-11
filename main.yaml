@@ -5,3 +5,5 @@
   become: yes
   roles:
   - "{{component}}"
+
+  #For keeping Place holders, we creating variable.yaml file and declared all HOST and calling through vars_files.
