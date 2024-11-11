@@ -22,16 +22,16 @@
 #   ansible.builtin.debug:
 #     msg: "entries count: {{entries_count}}"
 
-- name: "load {{component}} data"
+- name: "load catalogue data"
   ansible.builtin.shell: "mongo --host {{MONGODB_HOST}} < /app/schema/{{component}}.js"
-  when: component == "catalogue" and products_count.stdout == "0" # keep double quotes then only it will consider.
+  when: component == "catalogue" and products_count.stdout == "0"  # keep double quotes
   #ignore_errors: true
 
-- name: "load {{component}} data"
+- name: "load user data"
   ansible.builtin.shell: "mongo --host {{MONGODB_HOST}} < /app/schema/{{component}}.js"
   when: component == "user" and users_count.stdout == "0"  # keep double quotes
-  #ignore_errors: true  
-  
+  #ignore_errors: true
+
   # Because we using AND condition. If one condition fails --> then it will stop and Exit. won't continue further.
   # NOTE:
   # If you are using a TEMPLATE Module then you need keep the PLACE HOLDERS 
