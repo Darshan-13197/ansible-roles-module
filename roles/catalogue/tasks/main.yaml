@@ -17,3 +17,10 @@
   ansible.builtin.import_role:
     name: common
     tasks_from: systemd
+
+- name: New Deployment Release
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: new-deployment
+
+# If you not using TEMPLATES, then keep the catalogue.service under files and give the shell module "ansible.builtin.shell"
