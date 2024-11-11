@@ -1,4 +1,5 @@
-- name: start and enable nginx
+#Here it should be the same name where you mentioned in the main.yaml
+- name: Restart nginx   
   ansible.builtin.service:
     name: nginx
     state: restarted
