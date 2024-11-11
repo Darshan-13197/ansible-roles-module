@@ -1,0 +1,24 @@
+- name: disable current version of mysql
+  ansible.builtin.command: dnf module disable mysql -y
+#CentOS-8 Comes with MySQL 8 Version by default, However our application needs MySQL 5.7. So lets disable MySQL 8 version.
+
+- name: setup mysql5.7 repo
+  ansible.builtin.copy:
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
+
+- name: install mysql server
+  ansible.builtin.package:
+    name: mysql-community-server
+    state: present
+
+- name: start and enable mysql  # Befoer setup we need to start
+  ansible.builtin.service:
+    name: mysqld
+    state: started  #restarted is also fine
+    enabled: yes
+
+- name: setup root password
+  ansible.builtin.command: mysql_secure_installation --set-root-pass RoboShop@1
+
+# mysql -uroot -pRoboShop@1 -->You can check the new password working or not using the following command in MySQL.
