@@ -1,0 +1,17 @@
+- name: install maven
+  ansible.builtin.dnf:
+    name: maven
+    state: present
+
+- name: install dependencies
+  ansible.builtin.command: mvn clean package
+  args:
+    chdir: /app
+
+- name: rename jar file
+  ansible.builtin.command: "mv target/{{component}}-{{shipping_version}}.jar {{component}}.jar"
+  args:
+    chdir: /app
+
+# Here, we have kept the placeholders for component.
+# For Shipping version --> we have kept the place holder and this variable is mentioned under --> shipping/vars/main.yaml
