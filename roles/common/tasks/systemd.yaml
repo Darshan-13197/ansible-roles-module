@@ -1,7 +1,13 @@
+# - name: "Copy {{component}} service"
+#   ansible.builtin.copy:
+#     src: "{{component}}.service"
+#     dest: "/etc/systemd/system/{{component}}.service"
+
+#If you are using TEMPLATES module stucture in Ansible
 - name: "Copy {{component}} service"
-  ansible.builtin.copy:
-    src: "{{component}}.service"
-    dest: "/etc/systemd/system/{{component}}.service"
+  ansible.builtin.template:
+    src: "{{component}}.service.j2"
+    dest: "/etc/systemd/system/{{component}}.service"    
 
 - name: deamon reload and start
   ansible.builtin.systemd_service:
