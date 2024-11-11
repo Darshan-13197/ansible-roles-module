@@ -9,12 +9,12 @@
     state: present
 
 - name: "get the catalogue entries count"
-  ansible.builtin.shell: mongo --host {{MONGODB_HOST}} --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
+  ansible.builtin.shell:  mongo --host {{MONGODB_HOST}} --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
   register: products_count
   when: component == "catalogue"
 
 - name: "get the user entries count"
-  ansible.builtin.shell: mongo --host {{MONGODB_HOST}} --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
+  ansible.builtin.shell:  mongo --host {{MONGODB_HOST}} --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
   register: users_count
   when: component == "user"
 
@@ -24,16 +24,14 @@
 
 - name: "load {{component}} data"
   ansible.builtin.shell: "mongo --host {{MONGODB_HOST}} < /app/schema/{{component}}.js"
-  when: products_count == "0" and component == "catalogue" # keep double quotes then only it will consider.
-  # ignore_errors: true
+  when: component == "catalogue" and products_count == "0" # keep double quotes then only it will consider.
+  #ignore_errors: true
 
 - name: "load {{component}} data"
   ansible.builtin.shell: "mongo --host {{MONGODB_HOST}} < /app/schema/{{component}}.js"
-  when: users_count == "0" and component == "user"  # keep double quotes
-  # ignore_errors: true  
+  when: component == "user" and users_count == "0"  # keep double quotes
+  #ignore_errors: true  
   # Because we using AND condition. If one condition fails --> then it will stop and Exit. won't continue further.
-
-
   # NOTE:
   # If you are using a TEMPLATE Module then you need keep the PLACE HOLDERS 
   # Ex: Instead "mongodb.darshanshop.online" you can keep " {{MONGODB_HOST}} ""
